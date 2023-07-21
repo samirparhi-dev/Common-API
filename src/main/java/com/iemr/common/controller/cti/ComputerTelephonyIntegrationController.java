@@ -23,6 +23,7 @@ package com.iemr.common.controller.cti;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.ws.rs.core.MediaType;
+import java.util.regex.Pattern;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -192,10 +193,14 @@ public class ComputerTelephonyIntegrationController {
 		OutputResponse response = new OutputResponse();
 		logger.info("getOnlineAgents received a request " + request);
 		try {
+			String ipPattern = "^([0-9]{1,3}\\.){3}[0-9]{1,3}$";
 			String remoteAddress = serverRequest.getHeader("X-FORWARDED-FOR");
+			if (Pattern.matches(ipPattern, serverRequest.getHeader("X-FORWARDED-FOR"))){
+
 			if (remoteAddress == null || remoteAddress.trim().length() == 0) {
 				remoteAddress = serverRequest.getRemoteAddr();
 			}
+		}
 			response = ctiService.getOnlineAgents(request, remoteAddress);
 		} catch (Exception e) {
 			logger.error("getOnlineAgents failed with error " + e.getMessage(), e);
