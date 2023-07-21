@@ -193,9 +193,9 @@ public class ComputerTelephonyIntegrationController {
 		OutputResponse response = new OutputResponse();
 		logger.info("getOnlineAgents received a request " + request);
 		try {
-			String ipPattern = "^([0-9]{1,3}\\.){3}[0-9]{1,3}$";
+			String ippattern = "^([0-9]{1,3}\\.){3}[0-9]{1,3}$";
 			String remoteAddress = serverRequest.getHeader("X-FORWARDED-FOR");
-			if (Pattern.matches(ipPattern, serverRequest.getHeader("X-FORWARDED-FOR"))){
+			if (Pattern.matches(ippattern, serverRequest.getHeader("X-FORWARDED-FOR"))){
 
 			if (remoteAddress == null || remoteAddress.trim().length() == 0) {
 				remoteAddress = serverRequest.getRemoteAddr();
